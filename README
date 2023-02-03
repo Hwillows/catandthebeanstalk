@@ -1,26 +1,22 @@
 # Cat and The Beanstalk
 
+The app is designed for a local cat sitting business to hold all relevent information about their clients.
+
 ### Database Prep
 
-- Access the MySQL interface in your terminal by running 'mysql -u root -p'
-- Create a new database called CATB: 'create database CATB;'
-- Add a '.env' file to the project directory containing MySQL authentication
+Uses SQLite for the database
+Database is called 'CATB'
+Database and the table is created on the form page
+Information is pulled from the database on the 'Clients' and 'ClientProfile' page
+There is one table in the database, 'Clients'
+to view the table follow the below link
+/Users/hannahwillows/Documents/React Native/CATB/assets/ClientTable.png
 
-```bash
-  DB_HOST=127.0.0.1
-  DB_USER=root
-  DB_NAME=CATB
-  DB_PASS=YOURPASSWORD
-```
-
-- In a new terminal: in the project directory run 'npm run migrate' to create tables within the CATB database
-  The tables are as follows:
-
--Clients
-
-(see ReadmeResources: Tables.PNG for details)
-
-- In a new terminal, install the following packages in the backend:
-  NPM install express
-
-- In a new terminal, install the following packages in the frontend:
+- In a new terminal, install the following packages:
+  react
+  react-native
+  express
+  react-navigation/native
+  react-navigation/native-stack
+  expo-sqlite
+  expo-image-picker
