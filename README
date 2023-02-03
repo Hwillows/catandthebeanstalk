@@ -1,0 +1,26 @@
+# Cat and The Beanstalk
+
+### Database Prep
+
+- Access the MySQL interface in your terminal by running 'mysql -u root -p'
+- Create a new database called CATB: 'create database CATB;'
+- Add a '.env' file to the project directory containing MySQL authentication
+
+```bash
+  DB_HOST=127.0.0.1
+  DB_USER=root
+  DB_NAME=CATB
+  DB_PASS=YOURPASSWORD
+```
+
+- In a new terminal: in the project directory run 'npm run migrate' to create tables within the CATB database
+  The tables are as follows:
+
+-Clients
+
+(see ReadmeResources: Tables.PNG for details)
+
+- In a new terminal, install the following packages in the backend:
+  NPM install express
+
+- In a new terminal, install the following packages in the frontend:
