@@ -53,7 +53,7 @@ function Clients({ navigation }) {
   const showNames = () => {
     return clients.map((client, index) => {
       return (
-        <View style={{ flex: 1 }} key={index}>
+        <View style={{ flex: 1, padding: 30 }} key={index}>
           <View style={styles.centeredView}>
             <Modal
               animationType="none"
@@ -64,26 +64,32 @@ function Clients({ navigation }) {
                 setModalVisible(!modalVisible);
               }}
             >
-              <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                  <Pressable
-                    onPress={() =>
-                      setModalVisible(!modalVisible) & getClientId(client.id)
-                    }
-                  >
-                    <Text>View Profile</Text>
-                  </Pressable>
-                  <Pressable onPress={() => setModalVisible(!modalVisible)}>
-                    <Text>Close</Text>
-                  </Pressable>
+              <View style={styles.modalView}>
+                <View>
+                  <View>
+                    <Pressable
+                      onPress={() =>
+                        setModalVisible(!modalVisible) & getClientId(client.id)
+                      }
+                    >
+                      <Text>View Profile</Text>
+                    </Pressable>
+                    <Pressable onPress={() => setModalVisible(!modalVisible)}>
+                      <Text>Close</Text>
+                    </Pressable>
+                  </View>
                 </View>
               </View>
             </Modal>
           </View>
+
           <View style={styles.row}>
             <Pressable
               style={{ flex: 4 }}
-              onPress={() => setModalVisible(true) & setClientId(client.id)}
+              onPress={() =>
+                setModalVisible(!modalVisible) & setClientId(client.id)
+              }
+              // onPress={() => console.log("Modal button")}
             >
               <Text style={styles.button}>
                 {client.clientname} + {client.petname}
@@ -92,9 +98,9 @@ function Clients({ navigation }) {
 
             <View>
               <Pressable
-                // style={{ flex: 2 }}
-                // onPress={() => deleteClient(client.id)}
-                onPress={() => console.log(client.id)}
+                style={{ flex: 2 }}
+                onPress={() => deleteClient(client.id)}
+                // onPress={() => console.log(client.id)}
               >
                 <Text style={styles.button}>X</Text>
               </Pressable>
@@ -121,20 +127,15 @@ function Clients({ navigation }) {
     }
   };
 
-  return (
-    <View>
-      {/* <Text style={styles.title}>Clients</Text> */}
-      {showNames()}
-    </View>
-  );
+  return <View>{showNames()}</View>;
 }
 
 const styles = StyleSheet.create({
   row: {
-    flex: 1,
+    // flex: 1,
     flexDirection: "row",
-    alignSelf: "flex-start",
-    width: "100%",
+    //  alignSelf: "flex-start",
+    //width: "100%",
   },
   centeredView: {
     justifyContent: "center",
@@ -145,7 +146,7 @@ const styles = StyleSheet.create({
     margin: 20,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 35,
+    padding: 50,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -168,6 +169,7 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
     height: 50,
     padding: 10,
+    position: "relative",
   },
   title: {
     fontSize: 30,
