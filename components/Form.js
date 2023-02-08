@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import * as SQLite from "expo-sqlite";
 import * as ImagePicker from "expo-image-picker";
+import { useNavigation } from "@react-navigation/native";
 
 function Form() {
   const [name, setName] = useState([]);
@@ -31,6 +32,7 @@ function Form() {
 
   const db = SQLite.openDatabase("CATB");
 
+  const nav = useNavigation();
   // use effect creating table in database
 
   useEffect(() => {
@@ -113,18 +115,36 @@ function Form() {
   return (
     <View style={styles.container}>
       <ScrollView>
-        {/* first image picker attempt */}
-        <View style={{ alignItems: "center" }}>
+        <View
+          style={{
+            // flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "flex-start",
+          }}
+        >
+          <Text
+            style={{
+              paddingTop: 20,
+
+              fontSize: 20,
+              fontWeight: "bold",
+              color: "#394a51",
+            }}
+          >
+            Profile Picture
+          </Text>
           <Pressable style={styles.button} onPress={() => pickImage()}>
-            <Text style={styles.text}>Click to choose image</Text>
+            <Text style={[styles.text, { width: "60%" }]}>Choose Image</Text>
           </Pressable>
         </View>
 
         {image && (
-          <Image
-            source={{ uri: image[0].uri }}
-            style={{ width: 300, height: 300 }}
-          />
+          <View style={{ alignItems: "center" }}>
+            <Image
+              source={{ uri: image[0].uri }}
+              style={{ width: 300, height: 300, borderRadius: 300 / 2 }}
+            />
+          </View>
         )}
         <FormSection
           label="Client's Name"
@@ -191,7 +211,7 @@ function Form() {
           <Pressable
             style={styles.button}
             onPress={() => {
-              addClient();
+              addClient() & nav.navigate("Home");
             }}
           >
             <Text style={styles.text}>Add Client</Text>
@@ -246,12 +266,37 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 2,
     borderColor: "#fbf2d5",
-    width: "70%",
     alignItems: "center",
   },
   text: {
     fontSize: 18,
     padding: 10,
+    color: "#fbf2d5",
+  },
+  centeredView: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "#394a51",
+    borderRadius: 20,
+    padding: 50,
+    alignItems: "center",
+    shadowColor: "#fbf2d5",
+
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  modalText: {
+    padding: 10,
+    fontSize: 20,
     color: "#fbf2d5",
   },
 });
