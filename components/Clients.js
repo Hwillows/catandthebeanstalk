@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Button, StyleSheet, Pressable, Modal } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  Pressable,
+  Modal,
+  ScrollView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as SQLite from "expo-sqlite";
 import { AsyncStorage } from "react-native";
@@ -32,24 +40,6 @@ function Clients({ navigation }) {
     console.log(clients);
   }, []);
 
-  // Delete function
-
-  const deleteClient = (id) => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        "DELETE FROM Clients WHERE id = ?",
-        [id],
-        (txObj, resultSet) => {
-          if (resultSet.rowsAffected > 0) {
-            let existingName = [...clients].filter((name) => name.id !== id);
-            setClients(existingName);
-          }
-        },
-        (txObj, error) => console.log(error)
-      );
-    });
-  };
-
   const showNames = () => {
     return clients.map((client, index) => {
       return (
@@ -72,10 +62,10 @@ function Clients({ navigation }) {
                         setModalVisible(!modalVisible) & getClientId(client.id)
                       }
                     >
-                      <Text>View Profile</Text>
+                      <Text style={styles.modalText}>View Profile</Text>
                     </Pressable>
                     <Pressable onPress={() => setModalVisible(!modalVisible)}>
-                      <Text>Close</Text>
+                      <Text style={styles.modalText}>Close</Text>
                     </Pressable>
                   </View>
                 </View>
@@ -84,25 +74,16 @@ function Clients({ navigation }) {
           </View>
 
           <View style={styles.row}>
-            <Pressable
-              style={{ flex: 4 }}
-              onPress={() =>
-                setModalVisible(!modalVisible) & setClientId(client.id)
-              }
-              // onPress={() => console.log("Modal button")}
-            >
-              <Text style={styles.button}>
-                {client.clientname} + {client.petname}
-              </Text>
-            </Pressable>
-
-            <View>
+            <View style={{ flex: 5 }}>
               <Pressable
-                style={{ flex: 2 }}
-                onPress={() => deleteClient(client.id)}
-                // onPress={() => console.log(client.id)}
+                onPress={() =>
+                  setModalVisible(!modalVisible) & setClientId(client.id)
+                }
+                // onPress={() => console.log("Modal button")}
               >
-                <Text style={styles.button}>X</Text>
+                <Text style={styles.button}>
+                  {client.clientname} + {client.petname}
+                </Text>
               </Pressable>
             </View>
           </View>
@@ -127,7 +108,11 @@ function Clients({ navigation }) {
     }
   };
 
-  return <View>{showNames()}</View>;
+  return (
+    <ScrollView>
+      <View style={{ backgroundColor: "#7fa99b" }}>{showNames()}</View>
+    </ScrollView>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -144,11 +129,12 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    backgroundColor: "white",
+    backgroundColor: "#394a51",
     borderRadius: 20,
     padding: 50,
     alignItems: "center",
-    shadowColor: "#000",
+    shadowColor: "#fbf2d5",
+
     shadowOffset: {
       width: 0,
       height: 2,
@@ -158,18 +144,16 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   button: {
-    margin: 20,
-    shadowColor: "#000",
+    margin: 10,
+    // shadowColor: "#000",
     borderRadius: 6,
-    backgroundColor: "white",
-    color: "#20232a",
+    backgroundColor: "#fbf2d5",
+    color: "#394a51",
     textAlign: "center",
     fontSize: 20,
     fontWeight: "bold",
-    alignItems: "stretch",
     height: 50,
     padding: 10,
-    position: "relative",
   },
   title: {
     fontSize: 30,
@@ -177,6 +161,11 @@ const styles = StyleSheet.create({
     padding: 10,
     fontWeight: "600",
     fontFamily: "notoserif",
+  },
+  modalText: {
+    padding: 10,
+    fontSize: 20,
+    color: "#fbf2d5",
   },
 });
 

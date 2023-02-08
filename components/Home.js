@@ -7,7 +7,7 @@ import {
   Pressable,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-const BackgroundImage = require("../CATB.jpeg");
+const BackgroundImage = require("../CATB2.jpeg");
 
 function Home({ navigation }) {
   const nav = useNavigation();
@@ -48,16 +48,18 @@ const styles = StyleSheet.create({
   },
   button: {
     margin: 10,
-    backgroundColor: "white",
+    backgroundColor: "#394a51",
     padding: 5,
-    borderRadius: 4,
+    borderRadius: 10,
     borderWidth: 2,
-    borderColor: "grey",
+    borderColor: "#fbf2d5",
   },
   buttontext: {
     fontWeight: "500",
     fontFamily: "notoserif",
     fontSize: 20,
+    color: "#fbf2d5",
+    padding: 10,
   },
   image: {
     width: "100%",
@@ -70,6 +72,7 @@ const styles = StyleSheet.create({
     padding: 10,
     fontWeight: "600",
     fontFamily: "notoserif",
+    color: "#394a51",
   },
 });
 

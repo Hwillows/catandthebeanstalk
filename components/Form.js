@@ -114,7 +114,12 @@ function Form() {
     <View style={styles.container}>
       <ScrollView>
         {/* first image picker attempt */}
-        <Button title="Choose Image" onPress={() => pickImage()} />
+        <View style={{ alignItems: "center" }}>
+          <Pressable style={styles.button} onPress={() => pickImage()}>
+            <Text style={styles.text}>Click to choose image</Text>
+          </Pressable>
+        </View>
+
         {image && (
           <Image
             source={{ uri: image[0].uri }}
@@ -182,12 +187,16 @@ function Form() {
           value={emergencyContact}
           onChangeText={setEmergencyContact}
         />
-        <Button
-          title="Add Client"
-          onPress={() => {
-            addClient();
-          }}
-        />
+        <View style={{ alignItems: "center" }}>
+          <Pressable
+            style={styles.button}
+            onPress={() => {
+              addClient();
+            }}
+          >
+            <Text style={styles.text}>Add Client</Text>
+          </Pressable>
+        </View>
       </ScrollView>
     </View>
   );
@@ -198,9 +207,11 @@ function FormSection(props) {
   const { label, placeholder, value, onChangeText, secureTextEntry } = props;
   return (
     <View style={{ padding: 16 }}>
-      <Text style={{ padding: 8, fontSize: 18 }}>{label}</Text>
+      <Text style={{ padding: 8, fontSize: 18, color: "#394a51" }}>
+        {label}
+      </Text>
       <TextInput
-        style={{ padding: 8, fontSize: 18, backgroundColor: "#ECECED" }}
+        style={{ padding: 8, fontSize: 18, backgroundColor: "#fbf2d5" }}
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
@@ -212,7 +223,7 @@ function FormSection(props) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#E4D2FF",
+    backgroundColor: "#7fa99b",
     flex: 1,
     justifyContent: "center",
   },
@@ -226,6 +237,22 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     justifyContent: "space-between",
     margin: 8,
+  },
+  button: {
+    marginTop: 30,
+    marginBottom: 10,
+    backgroundColor: "#394a51",
+    padding: 5,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#fbf2d5",
+    width: "70%",
+    alignItems: "center",
+  },
+  text: {
+    fontSize: 18,
+    padding: 10,
+    color: "#fbf2d5",
   },
 });
 
