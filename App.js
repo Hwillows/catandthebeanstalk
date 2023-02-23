@@ -7,7 +7,7 @@ import Home from "./components/Home";
 import Clients from "./components/Clients";
 import ClientProfile from "./components/ClientProfile";
 
-//Screens the app uses - HomeScreen, Client Screen, New Client Screen
+//Screens the app uses - HomeScreen, Client Screen, New Client Screen, Update Screen
 
 const HomeScreen = Home;
 
@@ -24,8 +24,8 @@ const AppNavigator = () => (
   <Stack.Navigator>
     <Stack.Screen name="Home" component={HomeScreen} />
     <Stack.Screen name="Clients" component={ClientScreen} />
-    <Stack.Screen name="NewClient" component={NewClientScreen} />
-    <Stack.Screen name="ClientProfile" component={ClientProfileScreen} />
+    <Stack.Screen name="New Client" component={NewClientScreen} />
+    <Stack.Screen name="Client Profile" component={ClientProfileScreen} />
   </Stack.Navigator>
 );
 

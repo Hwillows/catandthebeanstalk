@@ -28,7 +28,7 @@ function Home({ navigation }) {
 
         <Pressable
           style={styles.button}
-          onPress={() => nav.navigate("NewClient")}
+          onPress={() => nav.navigate("New Client")}
         >
           <Text style={styles.buttontext}>New Client</Text>
         </Pressable>

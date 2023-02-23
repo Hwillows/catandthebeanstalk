@@ -10,10 +10,13 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as SQLite from "expo-sqlite";
+const catPic = require("../CATB2.jpeg");
 
 function ClientProfile({ route }) {
   const [client, setClient] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [updateModalVisible, setUpdateModalVisible] = useState(false);
+  const [clientsId, setClientsId] = useState();
   const clientId = route.params?.id;
   const clientInfo = client[0];
 
@@ -39,6 +42,21 @@ function ClientProfile({ route }) {
     });
     console.log(clientId);
   }, []);
+
+  // function to pass id prop to update screen
+
+  const getClientId = () => {
+    try {
+      setClientsId(clientId);
+      nav.navigate({
+        name: "Update",
+        params: { id: clientId },
+        merge: true,
+      });
+    } catch {
+      (error) => console.log(error);
+    }
+  };
 
   // Delete function
 
@@ -86,6 +104,38 @@ function ClientProfile({ route }) {
 
           {/* Modal end */}
 
+          <View style={styles.centeredView}>
+            <Modal
+              animationType="none"
+              transparent={true}
+              visible={updateModalVisible}
+              onRequestClose={() => {
+                Alert.alert("Modal has been closed.");
+                setUpdateModalVisible(!updateModalVisible);
+              }}
+            >
+              <View style={styles.modalView}>
+                <View>
+                  <Text style={styles.modalText}>Change client details?</Text>
+                  <Pressable
+                    onPress={() =>
+                      setUpdateModalVisible(!updateModalVisible) &
+                      setClientsId(clientId) &
+                      getClientId()
+                    }
+                  >
+                    <Text style={styles.modalText}>Yes</Text>
+                  </Pressable>
+                  <Pressable
+                    onPress={() => setUpdateModalVisible(!updateModalVisible)}
+                  >
+                    <Text style={styles.modalText}>No</Text>
+                  </Pressable>
+                </View>
+              </View>
+            </Modal>
+          </View>
+
           <View style={styles.headingcontainer}>
             <Text style={styles.heading}>
               {client.clientname} + {client.petname}
@@ -93,10 +143,17 @@ function ClientProfile({ route }) {
           </View>
           <View>
             <View style={{ alignItems: "center" }}>
-              <Image
-                source={{ uri: client.image }}
-                style={{ width: 300, height: 300, borderRadius: 300 / 2 }}
-              />
+              {client.image.length > 0 ? (
+                <Image
+                  source={{ uri: client.image }}
+                  style={{ width: 300, height: 300, borderRadius: 300 / 2 }}
+                />
+              ) : (
+                <Image
+                  source={catPic}
+                  style={{ width: 300, height: 300, borderRadius: 300 / 2 }}
+                />
+              )}
             </View>
             <Text style={styles.title}>{client.clientname}'s Address:</Text>
             <Text style={styles.paragraph}>{client.address}</Text>
@@ -117,6 +174,7 @@ function ClientProfile({ route }) {
             <Text style={styles.title}>Emergency Contact:</Text>
             <Text style={styles.paragraph}>{client.emergencycontact}</Text>
           </View>
+
           <Pressable
             style={styles.button}
             onPress={() => setModalVisible(true)}

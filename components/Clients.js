@@ -79,7 +79,6 @@ function Clients({ navigation }) {
                 onPress={() =>
                   setModalVisible(!modalVisible) & setClientId(client.id)
                 }
-                // onPress={() => console.log("Modal button")}
               >
                 <Text style={styles.button}>
                   {client.clientname} + {client.petname}
@@ -99,7 +98,7 @@ function Clients({ navigation }) {
       setClientId(id);
 
       navigation.navigate({
-        name: "ClientProfile",
+        name: "Client Profile",
         params: { id: clientId },
         merge: true,
       });
@@ -109,8 +108,8 @@ function Clients({ navigation }) {
   };
 
   return (
-    <ScrollView>
-      <View style={{ backgroundColor: "#7fa99b" }}>{showNames()}</View>
+    <ScrollView style={{ backgroundColor: "#7fa99b" }}>
+      <View>{showNames()}</View>
     </ScrollView>
   );
 }
