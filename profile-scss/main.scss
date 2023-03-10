@@ -1,0 +1,103 @@
+$pink: #ffaaa5;
+$white: #fcf8f3;
+$nude: #ffd3b6;
+$green: #698474;
+
+@mixin transform($transformation) {
+  transform: $transformation;
+  -webkit-transform: $transformation;
+  -moz-transform: $transformation;
+  -ms-transform: $transformation;
+  -o-transform: $transformation;
+}
+@mixin transform-style($style) {
+  transform-style: $style;
+  -moz-transform-style: $style;
+  -o-transform-style: $style;
+  -ms-transform-style: $style;
+  -webkit-transform-style: $style;
+}
+
+@mixin backface-visibility($visibility: hidden) {
+  backface-visibility: $visibility;
+  -webkit-backface-visibility: $visibility;
+  -moz-backface-visibility: $visibility;
+  -ms-backface-visibility: $visibility;
+  -o-backface-visibility: $visibility;
+}
+
+@mixin photo-content($file) {
+  content: url(#{$file}.jpeg);
+  object-fit: cover;
+  border-radius: $pink;
+}
+
+@mixin font-style($fontsize) {
+  font-size: $fontsize;
+  color: $green;
+  font-weight: bold;
+}
+
+//Add your own mixins here
+
+.notecard {
+  width: 300px;
+  height: 180px;
+  border: 1px solid black;
+  display: inline-block;
+  margin: 20px;
+  font-family: Roboto, sans-serif;
+  box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.2);
+  @include transform-style(preserve-3d);
+
+  &:hover {
+    @include transform(rotatey(-180deg));
+  }
+
+  .front,
+  .back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    @include backface-visibility;
+  }
+
+  .front {
+    z-index: 3;
+    font-size: 20px;
+    background-color: $pink;
+
+    .name {
+      display: block;
+      text-align: center;
+      position: relative;
+      top: 40%;
+      @include font-style(20px);
+    }
+  }
+
+  .back {
+    z-index: 1;
+    word-wrap: break-word;
+    line-height: 1.6;
+    background-color: $white;
+    @include transform(rotatey(-180deg));
+
+    .profile-title {
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      @include font-style(15px);
+      .photo {
+        @include photo-content("Hannah");
+        width: 45%;
+        margin: 0px auto;
+      }
+      .catphoto {
+        @include photo-content("Luna");
+        width: 35%;
+        margin: 0px auto;
+      }
+    }
+  }
+}
